@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
@@ -28,14 +29,12 @@ import java.time.format.DateTimeFormatter
 import java.util.Date
 
 @Composable
-fun ChatMessage(message: Message, isLeft: Boolean = true) {
-    Row (
+fun ChatMessage(message: Message, isLeft: Boolean = true, onDelete: () -> Unit) {
+    Row(
         modifier = Modifier
             .background(MaterialTheme.colorScheme.primary, shape = RoundedCornerShape(16.dp))
             .padding(16.dp)
-            .semantics { contentDescription = "ChatMessage" }
-        ,
-
+            .semantics { contentDescription = "ChatMessage" },
         horizontalArrangement = if (isLeft) {
             Arrangement.Start
         } else {
@@ -54,14 +53,31 @@ fun ChatMessage(message: Message, isLeft: Boolean = true) {
                     .semantics { contentDescription = "Don'tWorryNoTestingHereLol" }
             )
             Spacer(modifier = Modifier.width(16.dp).semantics { contentDescription = "ImagineTestingASpacer" })
-        }
-        Column(){
-            MessageField(message = message.message)
-            // Timestamp added
-            DateField(date = message.timeStamp)
-        }
-
-        if (!isLeft) {
+            Column {
+                MessageField(message = message.message)
+                DateField(date = message.timeStamp)
+            }
+            Button(
+                onClick = onDelete,
+                modifier = Modifier
+                    .padding(start = 8.dp)
+                    .semantics { contentDescription = "DeleteButton" }
+            ) {
+                Text("Delete")
+            }
+        } else {
+            Button(
+                onClick = onDelete,
+                modifier = Modifier
+                    .padding(end = 8.dp)
+                    .semantics { contentDescription = "DeleteButton" }
+            ) {
+                Text("Delete")
+            }
+            Column {
+                MessageField(message = message.message)
+                DateField(date = message.timeStamp)
+            }
             Spacer(modifier = Modifier.width(16.dp).semantics { contentDescription = "VeryImportantSpacer" })
             VerticalDivider(
                 modifier = Modifier

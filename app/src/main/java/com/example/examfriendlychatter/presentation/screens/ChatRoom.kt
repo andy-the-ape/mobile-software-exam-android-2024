@@ -1,7 +1,6 @@
 package com.example.examfriendlychatter.presentation.screens
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -12,7 +11,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -38,7 +36,7 @@ import com.example.examfriendlychatter.presentation.composables.ChatMessage
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ChatRoom() {
+fun ChatRoom(chatRoomId: String?) {
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -85,7 +83,9 @@ fun ChatRoom() {
                             Arrangement.End
                         }
                     ) {
-                        ChatMessage(message = message, isLeft = isLeft)
+                        ChatMessage(message = message, isLeft = isLeft, onDelete = {
+                            messageList = messageList.toMutableList().apply { removeAt(index) }
+                        })
                     }
                 }
             }
@@ -107,7 +107,7 @@ fun ChatRoom() {
                     label = { Text("Enter message",
                         modifier = Modifier.semantics { contentDescription = "EnterMessage" },
                         fontFamily = MaterialTheme.typography.bodySmall.fontFamily,
-                        ) },
+                    ) },
                     modifier = Modifier
                         .height(60.dp)
                         .background(

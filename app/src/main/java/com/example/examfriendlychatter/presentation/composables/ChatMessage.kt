@@ -23,6 +23,9 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.example.examfriendlychatter.R
 import com.example.examfriendlychatter.data.Message
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.util.Date
 
 @Composable
 fun ChatMessage(message: Message, isLeft: Boolean = true) {
@@ -52,7 +55,12 @@ fun ChatMessage(message: Message, isLeft: Boolean = true) {
             )
             Spacer(modifier = Modifier.width(16.dp).semantics { contentDescription = "ImagineTestingASpacer" })
         }
-        MessageField(message = message.message)
+        Column(){
+            MessageField(message = message.message)
+            // Timestamp added
+            DateField(date = message.timeStamp)
+        }
+
         if (!isLeft) {
             Spacer(modifier = Modifier.width(16.dp).semantics { contentDescription = "VeryImportantSpacer" })
             VerticalDivider(
@@ -91,10 +99,19 @@ fun ProfilePicture(from: String) {
     }
 }
 
+
 @Composable
 fun MessageField(message: String) {
     Text(text = message,
         style = MaterialTheme.typography.displayMedium,
         modifier = Modifier.semantics { contentDescription = "ChatMessageText" }
+    )
+}
+// Komponent til tid på msg.
+@Composable
+fun DateField(date: Date) {
+    Text(text = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm").withZone(ZoneId.systemDefault()).format(date.toInstant()),
+        style = MaterialTheme.typography.bodySmall,
+        modifier = Modifier.semantics { contentDescription = "ChatMessageDate" }
     )
 }

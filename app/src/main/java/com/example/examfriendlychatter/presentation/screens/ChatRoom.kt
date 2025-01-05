@@ -23,6 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -49,7 +50,7 @@ fun ChatRoom(chatRoomId: String?) {
             )
         }
     ) { innerPadding ->
-        var messageList by remember {
+        var messageList by rememberSaveable {
             mutableStateOf(
                 listOf(
                     Message("Hello", "Me"),
@@ -57,7 +58,7 @@ fun ChatRoom(chatRoomId: String?) {
                 )
             )
         }
-        var currentUser by remember { mutableStateOf(getCurrentUser(messageList.size)) }
+        var currentUser by rememberSaveable { mutableStateOf(getCurrentUser(messageList.size)) }
         Box(
             modifier = Modifier
                 .fillMaxSize()

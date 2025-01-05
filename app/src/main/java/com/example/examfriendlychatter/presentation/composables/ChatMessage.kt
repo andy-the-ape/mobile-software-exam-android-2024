@@ -107,6 +107,7 @@ fun ProfilePicture(from: String) {
         AsyncImage(
             model = "https://cataas.com/cat",
             contentDescription = "Profile Picture",
+            placeholder = painterResource(R.drawable.ic_launcher_foreground),
             modifier = Modifier
                 .clip(shape = RoundedCornerShape(20.dp))
                 .width(50.dp)

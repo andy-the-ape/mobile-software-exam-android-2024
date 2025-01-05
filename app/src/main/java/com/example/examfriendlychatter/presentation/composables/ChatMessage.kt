@@ -105,10 +105,10 @@ fun ProfilePicture(from: String) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         AsyncImage(
-            model = "https://randomuser.me/api/portraits/men/47.jpg",
+            model = "https://cataas.com/cat",
             contentDescription = "Profile Picture",
             modifier = Modifier
-                .clip(shape = RoundedCornerShape(25.dp))
+                .clip(shape = RoundedCornerShape(20.dp))
                 .width(50.dp)
                 .semantics { contentDescription = "ChatProfilePicture" }
         )

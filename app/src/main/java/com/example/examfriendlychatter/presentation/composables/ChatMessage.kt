@@ -22,6 +22,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
+import coil3.compose.AsyncImage
 import com.example.examfriendlychatter.R
 import com.example.examfriendlychatter.data.Message
 import java.time.ZoneId
@@ -103,11 +104,19 @@ fun ProfilePicture(from: String) {
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.ic_launcher_foreground),
+        AsyncImage(
+            model = "https://randomuser.me/api/portraits/men/47.jpg",
             contentDescription = "Profile Picture",
-            modifier = Modifier.width(50.dp).semantics { contentDescription = "ChatProfilePicture" }
+            modifier = Modifier
+                .clip(shape = RoundedCornerShape(25.dp))
+                .width(50.dp)
+                .semantics { contentDescription = "ChatProfilePicture" }
         )
+//        Image(
+//            painter = painterResource(id = R.drawable.ic_launcher_foreground),
+//            contentDescription = "Profile Picture",
+//            modifier = Modifier.width(50.dp).semantics { contentDescription = "ChatProfilePicture" }
+//        )
         Text(text = from,
             style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier.semantics { contentDescription = "ChatProfileName" }
